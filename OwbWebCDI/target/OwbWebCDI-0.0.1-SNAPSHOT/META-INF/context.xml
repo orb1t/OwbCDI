@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true" crossContext="false"  
+		path="/OwbWebCDI"
+		jndiExceptionOnFailedWrite="false"
+		antiJARLocking="true" antiResourceLocking="true" unpackWAR="true">
+
+ <!-- OpenWebBeans Factory -->
+ <Resource name="BeanManager" 
+        auth="Container"
+        type="javax.enterprise.inject.spi.BeanManager"
+        factory="org.apache.webbeans.container.ManagerObjectFactory"/>
+ 
+
+</Context>

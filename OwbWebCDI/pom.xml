@@ -1,0 +1,112 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+  	<groupId>br.com.cdi</groupId>
+  	<artifactId>builder</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+	<relativePath>../pom.xml</relativePath>
+  </parent>
+  <packaging>war</packaging>
+  <artifactId>OwbWebCDI</artifactId>
+  <name>OwbWebCDI</name>
+  
+  <properties>
+   	<jsf-myfaces.version>2.2.4</jsf-myfaces.version>
+  </properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>OwbBusinessCDI</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- Web dependency	<version>2.2.2</version> -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- API para servlet --> 
+		<dependency>  
+			<groupId>javax.servlet</groupId>  
+			<artifactId>javax.servlet-api</artifactId>  
+			<version>${javax.servlet-api-version}</version>  
+			<scope>provided</scope>  
+		</dependency>         
+	
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.2.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+			<scope>provided</scope>
+		</dependency>
+
+		
+		<!-- **************************************************** Myfaces JSF api 
+			Evitar este erro: WebBeans context with scope type annotation @FlowDefinition does not exist within current thread
+			Para evitar esse erro, trocar a implementacao Mojarra pelas duas libs abaixo-
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-api</artifactId>
+			<version>${jsf-myfaces.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-impl</artifactId>
+			<version>${jsf-myfaces.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		-->	
+		           
+		<!-- Mojarra JSF Dependencies
+		Summarized, your classpath and library management is a complete mess and there are two solutions:
+		If you want to stick to Tomcat 6.0, you should be using JSF 2.0 (not 2.1) and you should be using Servlet 2.5 and JSP 2.1 (not Servlet 3.0 nor JSP 2.2 nor Java EE 5 nor 6).
+		If you want to use JSF 2.1, then you should upgrade Tomcat to 7.0 and you should be using Servlet 3.0 and JSP 2.2 (not Java EE 6).
+		The third solution is to get rid of Maven altogether and control the libraries yourself, but I would then probably step into toes of Maven fans.
+		-->
+
+		 <!-- Jstl  dependencies -->
+		 <dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<!-- Implementacao Mojarra JSF da sun  -->
+		<dependency>  
+		    <groupId>com.sun.faces</groupId>  
+		    <artifactId>jsf-api</artifactId>  
+		    <version>2.2.6</version>  
+		</dependency>  
+		 
+		<dependency>  
+		    <groupId>com.sun.faces</groupId>  
+		    <artifactId>jsf-impl</artifactId>  
+ 		    <version>2.2.6</version>
+		</dependency>
+		
+		
+		<!-- Primefaces JSF Dependencies -->
+		<dependency>  
+			<groupId>org.primefaces</groupId>  
+			<artifactId>primefaces</artifactId>  
+			<version>4.0</version>  
+		</dependency>  
+		
+		
+	</dependencies>
+
+
+</project>
+  

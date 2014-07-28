@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config  xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+	
+	<application>
+<!-- 		<message-bundle>resources.application</message-bundle> -->
+		
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>en</supported-locale>      
+		</locale-config>
+
+	<component>
+		<component-type>components.jsp.includeComponentType</component-type>
+		<component-class>br.com.cdi.component.JSPIncludeComponent</component-class>
+	</component>
+	
+	<render-kit>
+	    <renderer>
+	      <description>
+	        Include jsp content in jsp page
+	      </description>
+	      <component-family>
+	      	components.jsp.includeFamily
+	      </component-family>
+	      <renderer-type>
+	      	components.jsp.includeRendererType
+	      </renderer-type>
+	      <renderer-class>
+	      	br.com.cdi.component.JSPIncludeRenderer
+	      </renderer-class>
+	    </renderer>
+  </render-kit>
+	
+	</application>
+	
+</faces-config>
