@@ -1,4 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
   	<groupId>br.com.cdi</groupId>
@@ -12,6 +14,11 @@
   
   <properties>
    	<jsf-myfaces.version>2.2.4</jsf-myfaces.version>
+    <tomee.additional.args></tomee.additional.args>
+    <tomee.version>1.6.0</tomee.version>
+    <tomee.mavenplugin.version>${tomee.version}</tomee.mavenplugin.version>
+
+    <projectstage>Development</projectstage>
   </properties>
 
 	<dependencies>
@@ -87,15 +94,18 @@
 		<dependency>  
 		    <groupId>com.sun.faces</groupId>  
 		    <artifactId>jsf-api</artifactId>  
-		    <version>2.2.6</version>  
+		    <version>2.2.6</version>
+            <scope>provided</scope>
 		</dependency>  
 		 
-		<dependency>  
+<!--
+		<dependency>
 		    <groupId>com.sun.faces</groupId>  
 		    <artifactId>jsf-impl</artifactId>  
  		    <version>2.2.6</version>
 		</dependency>
-		
+-->
+
 		
 		<!-- Primefaces JSF Dependencies -->
 		<dependency>  
@@ -106,6 +116,53 @@
 		
 		
 	</dependencies>
+
+    <build>
+        <finalName>owbCdi</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.openejb.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>${tomee.mavenplugin.version}</version>
+                <configuration>
+                    <tomeeVersion>${tomee.version}</tomeeVersion>
+                    <tomeeClassifier>webprofile</tomeeClassifier>
+                    <config>${project.build.directory}/tomee/conf</config>
+                    <deployOpenEjbApplication>true</deployOpenEjbApplication>
+
+                    <!-- removed the .war extension from the "warFile" property, so we can use exploded archives -->
+                    <warFile>${project.build.directory}/${project.build.finalName}</warFile>
+                    <!-- path that is used by tomEE in the tomee:deploy and tomee:undeploy goal -->
+                    <path>${project.build.directory}/apache-tomee/webapps${project.build.finalName}</path>
+                    <!-- memory settings for tomEE; increased PermGen from default 64m to 512m, should allow for more
+                    redeploys without PermGenExceptions -->
+                    <args>-Dorg.apache.deltaspike.ProjectStage=${projectstage} -Djavax.faces.PROJECT_STAGE=${projectstage} -Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms1024m -Xmx1024m -XX:NewSize=512m -XX:MaxNewSize=384m -XX:PermSize=384m -XX:MaxPermSize=512m -XX:+DisableExplicitGC ${tomee.additional.args}
+                    </args>
+
+                    <libs>
+                        <lib>remove:myfaces-api</lib>
+                        <lib>remove:myfaces-impl</lib>
+                        <lib>com.sun.faces:jsf-api:2.2.6</lib>
+                        <lib>com.sun.faces:jsf-impl:2.2.6</lib>
+                    </libs>
+
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.openejb</groupId>
+                        <artifactId>apache-tomee</artifactId>
+                        <version>${tomee.version}</version>
+                        <classifier>webprofile</classifier>
+                        <type>zip</type>
+                        <!-- we have to set this to runtime, else it does not work -->
+                        <scope>runtime</scope>
+                    </dependency>
+
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
 
 
 </project>
