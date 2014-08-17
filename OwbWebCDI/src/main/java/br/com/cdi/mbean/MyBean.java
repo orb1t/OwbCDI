@@ -1,5 +1,6 @@
 package br.com.cdi.mbean;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import br.com.cdi.FacadeAdapter;
 
 @Named("myBean")
-@javax.enterprise.context.RequestScoped
+@RequestScoped
 public class MyBean {
 
 	@Inject
